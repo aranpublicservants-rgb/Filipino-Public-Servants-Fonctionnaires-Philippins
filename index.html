@@ -217,6 +217,7 @@ footer{max-width:none;background:var(--nav);color:#fff;margin-top:40px;padding:3
 @media print{.history-filter-bar{display:none}.history-card[hidden]{display:grid!important}.history-explorer{box-shadow:none}.history-card-body,.history-fact,.pathway-card{break-inside:avoid;box-shadow:none}}
 
 </style>
+<link rel="canonical" href="https://aranpublicservants-rgb.github.io/Filipino-Public-Servants-Fonctionnaires-Philippins/">
 </head>
 <body id="top">
 <a class="skip" href="#main"><span class="en">Skip to main content</span><span class="fr" lang="fr-CA">Passer au contenu principal</span></a>
@@ -752,7 +753,9 @@ function renderExplorer(){if(!$("datasetSelect"))return;var key=$("datasetSelect
 $("datasetSelect").addEventListener("change",renderExplorer);$("explorerDownload").addEventListener("click",function(){var c=datasets[$("datasetSelect").value],csv=L("Category,Value","Catégorie,Valeur")+"\n"+explorerRows.map(function(r){return csvCell(r.label)+","+csvCell(r.raw)}).join("\n");download(slug(FR?c.fr:c.en)+".csv",csv,"text/csv;charset=utf-8")});
 
 function pageText(){var parts=[];document.querySelectorAll("main>section").forEach(function(sec){var h=sec.querySelector("h2 ."+(FR?"fr":"en")),b=visibleBody(sec);if(h&&b){parts.push(text(h).toUpperCase());parts.push(text(b));parts.push("")}});return parts.join("\n\n")}
-function docBlob(title,body){download(slug(title)+".doc",'<html><head><meta charset="utf-8"><title>'+esc(title)+'</title></head><body style="font-family:Arial,sans-serif;font-size:12pt">'+body+'</body></html>',"application/msword")}
+function docBlob(title,body){download(slug(title)+".doc",'<html><head><meta charset="utf-8"><title>'+esc(title)+'</title></head><body style="font-family:Arial,sans-serif;font-size:12pt">'+body+'
+<aside id="gc-equity-related" aria-label="Related federal public service resource" style="max-width:1120px;margin:2.5rem auto 1.3rem;padding:1.1rem 1.3rem;border-top:1px solid #9aaead;line-height:1.5;font-family:system-ui,sans-serif;font-size:.92rem"><strong>Complementary equity research <span lang="fr">· Recherche connexe sur l’équité</span></strong><p style="margin:.35rem 0"><a href="https://aranpublicservants-rgb.github.io/GC-Equity-Equite-GC/">GC Equity / Équité-GC</a> · <a href="https://aranpublicservants-rgb.github.io/GC-Equity-Equite-GC/organizations.html">Federal organization directory / Répertoire fédéral</a></p></aside>
+</body></html>',"application/msword")}
 $("dlTxt").addEventListener("click",function(){download(FR?"fonctionnaires-philippins.txt":"filipino-public-servants.txt",pageText())});$("dlDoc").addEventListener("click",function(){var title=text(document.querySelector("h1 ."+(FR?"fr":"en")));docBlob(title,"<h1>"+esc(title)+"</h1><p>"+esc(pageText()).replace(/\n\n/g,"</p><p>").replace(/\n/g,"<br>")+"</p>")});
 
 document.addEventListener("click",function(ev){var t=ev.target.closest&&ev.target.closest(".tooldl");if(!t)return;var det=t.closest("details"),title=text(det.querySelector("summary")),items=[].map.call(det.querySelectorAll("ul li"),text);if(t.dataset.kind==="doc")docBlob(title,"<h1>"+esc(title)+"</h1><ul>"+items.map(function(i){return"<li>"+esc(i)+"</li>"}).join("")+"</ul>");else download(slug(title)+".txt",title+"\n\n"+items.map(function(i){return"• "+i}).join("\n"))});
